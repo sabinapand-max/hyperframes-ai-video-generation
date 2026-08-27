@@ -23,6 +23,7 @@
 # Dependencies
 node_modules/
 .pnpm-store/
+.venv/
 
 # Build / output
 dist/
@@ -38,6 +39,7 @@ __pycache__/
 **/.waveform-cache/
 **/out/
 **/renders/
+**/.savvy-fox-work/
 videos/**
 
 # TTS chunk intermediates — large + regenerable from narration.txt + edge-tts

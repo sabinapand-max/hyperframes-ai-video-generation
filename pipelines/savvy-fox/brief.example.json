@@ -1,0 +1,51 @@
+{
+  "project_dir": "videos/my-short",
+  "output": "out/my-short.mp4",
+  "fps": 30,
+  "voice": {
+    "engine": "elevenlabs",
+    "script": "Continue the narration after the optional lip-synced hook.",
+    "shorts": true,
+    "single_call": true
+  },
+  "scenes": [
+    {
+      "kind": "video",
+      "path": "media/hook-lipsync.mp4",
+      "duration": 5.0,
+      "fade_in": 0
+    },
+    {
+      "kind": "video",
+      "path": "media/acting-cutaway.mp4",
+      "duration": 4.0
+    },
+    {
+      "kind": "image",
+      "path": "media/insight-frame.png",
+      "duration": 5.0,
+      "zoom": 0.0004
+    }
+  ],
+  "audio": {
+    "intro_source_audio": "media/hook-lipsync.mp4",
+    "intro_duration": 5.0,
+    "narration_path": "audio/narration.wav",
+    "music_path": "media/signature-bed.wav",
+    "music_volume": 0.1
+  },
+  "captions": [
+    {
+      "start": 0.2,
+      "end": 2.8,
+      "text": "ONE CLEAR HOOK.",
+      "accent": false
+    },
+    {
+      "start": 2.8,
+      "end": 5.0,
+      "text": "ONE HONEST EXPERIMENT.",
+      "accent": true
+    }
+  ]
+}
