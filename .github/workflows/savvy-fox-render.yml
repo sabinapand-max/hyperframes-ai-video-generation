@@ -1,0 +1,44 @@
+name: Render Savvy Fox short
+
+on:
+  workflow_dispatch:
+    inputs:
+      brief_path:
+        description: Path to the Savvy Fox JSON brief
+        required: true
+        default: pipelines/savvy-fox/brief.example.json
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    env:
+      ELEVENLABS_API_KEY: ${{ secrets.ELEVENLABS_API_KEY }}
+      ELEVENLABS_VOICE_ID: ${{ vars.ELEVENLABS_VOICE_ID }}
+      ELEVENLABS_MODEL_ID: ${{ vars.ELEVENLABS_MODEL_ID || 'eleven_multilingual_v2' }}
+      ELEVENLABS_STABILITY: ${{ vars.ELEVENLABS_STABILITY || '0.40' }}
+      ELEVENLABS_SIMILARITY_BOOST: ${{ vars.ELEVENLABS_SIMILARITY_BOOST || '0.75' }}
+      ELEVENLABS_STYLE: ${{ vars.ELEVENLABS_STYLE || '0.70' }}
+      ELEVENLABS_SPEED: ${{ vars.ELEVENLABS_SPEED || '1.00' }}
+      ELEVENLABS_SPEED_SHORTS: ${{ vars.ELEVENLABS_SPEED_SHORTS || '1.15' }}
+      ELEVENLABS_USE_SPEAKER_BOOST: ${{ vars.ELEVENLABS_USE_SPEAKER_BOOST || 'true' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+      - name: Install media and voice dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg
+          pip install elevenlabs python-dotenv
+      - name: Validate and render
+        run: python scripts/savvy-fox.py all "${{ inputs.brief_path }}"
+      - name: Upload rendered videos
+        uses: actions/upload-artifact@v4
+        with:
+          name: savvy-fox-render
+          path: videos/**/out/*.mp4
+          if-no-files-found: error
