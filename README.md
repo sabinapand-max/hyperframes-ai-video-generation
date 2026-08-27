@@ -2,6 +2,10 @@
 
 Turn a topic prompt into a polished, AI-voiced vertical YouTube Short. One command, fire and forget.
 
+For a smaller workflow that does not require Archon, Claude, or a local LLM,
+see [`pipelines/savvy-fox/`](pipelines/savvy-fox/). It turns one JSON brief into
+optional ElevenLabs narration plus a deterministic, validated vertical MP4.
+
 ```bash
 archon workflow run create-classic-short --no-worktree "What is RAG?"
 ```
